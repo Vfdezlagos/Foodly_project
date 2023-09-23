@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundfoodly"
+    android:backgroundTint="@color/custom_black_screen_background"
+    android:backgroundTintMode="src_atop"
+    tools:context=".HomeActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.08" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.92" />
+
+    <ImageView
+        android:id="@+id/img_logoFoodlyHome"
+        android:layout_width="210dp"
+        android:layout_height="105dp"
+        android:contentDescription="@string/desc_logo_text"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toTopOf="@+id/guideline9"
+        app:srcCompat="@drawable/logofoodly" />
+
+    <Button
+        android:id="@+id/btn_opcionesUsuarioHome"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/custom_teal"
+        android:contentDescription="@string/desc_btn_opc_usuario"
+        app:icon="@drawable/baseline_person_24"
+        app:iconPadding="0dp"
+        app:iconSize="30sp"
+        app:iconTint="@color/custom_black"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
+    <Button
+        android:id="@+id/btn_aniadirRecHome"
+        style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/btn_aniadir"
+        android:textColor="@color/custom_green"
+        android:textSize="18sp"
+        app:icon="@drawable/plus"
+        app:iconSize="26sp"
+        app:iconTint="@color/custom_green"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/img_logoFoodlyHome" />
+
+    <ListView
+        android:id="@+id/Lv_recetasHome"
+        android:layout_width="0dp"
+        android:layout_height="480sp"
+        android:layout_marginTop="15dp"
+        android:background="@color/custom_gray_t50"
+        android:contextClickable="true"
+        android:dividerHeight="20sp"
+        android:entries="@array/lista_recetas_provisorias"
+        android:fadeScrollbars="true"
+        android:paddingHorizontal="3sp"
+        android:scrollbarSize="7sp"
+        android:scrollbarStyle="outsideInset"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/btn_aniadirRecHome" />
+
+    <Spinner
+        android:id="@+id/sp_categoriasHome"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:dropDownWidth="wrap_content"
+        android:entries="@array/spinner_categorias"
+        android:popupBackground="@color/custom_gray_t75"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/img_logoFoodlyHome" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

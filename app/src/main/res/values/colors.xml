@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Colores personalizados -->
+    <color name="custom_teal">#0D7956</color>
+    <color name="custom_teal_t50">#800D7956</color>
+    <color name="custom_teal_t75">#BF0D7956</color>
+    <color name="custom_gray">#D9D9D9</color>
+    <color name="custom_gray_t25">#41D9D9D9</color>
+    <color name="custom_gray_t50">#80D9D9D9</color>
+    <color name="custom_gray_t75">#BFD9D9D9</color>
+    <color name="custom_black">#070707</color>
+    <color name="custom_black_screen_background">#E6000000</color>
+    <color name="custom_green">#84CC16</color>
+    <color name="custom_green_t75">#BF84CC16</color>
+    <color name="custom_red">#FB3E3E</color>
+    <color name="custom_red_50">#80FB3E3E</color>
+    <color name="custom_red_t25">#41FB3E3E</color>
+
+    <!-- Colores Temas -->
+    <color name="colorPrimary">#0D7956</color>
+    <color name="colorPrimaryVariant">#84CC16</color>
+    <color name="colorSecondary">#D9D9D9</color>
+    <color name="colorSecondaryVariant">#41D9D9D9</color>
+    <color name="colorBackground">#E6000000</color>
+    <color name="colorSurface">#070707</color>
+    <color name="colorError">#FB3E3E</color>
+
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#D9D9D9</color>
+    <color name="colorOnBackground">#E6000000</color>
+    <color name="colorOnSurface">#FFFFFF</color>
+    <color name="colorOnError">#FB3E3E</color>
+</resources>

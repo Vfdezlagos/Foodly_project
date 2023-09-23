@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name">Foodly</string>
+
+    <!-- Content description -->
+    <string name="desc_logo_text">Logo foodly</string>
+    <string name="desc_btn_opc_usuario">Boton opciones de usuario</string>
+
+    <!-- input hints -->
+    <string name="username_hint">Nombre de usuario</string>
+    <string name="email_hint">Correo</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="rep_password_hint">Repetir contraseña</string>
+    <string name="actual_password_hint">Contraseña actual</string>
+    <string name="new_password_hint">Nueva contraseña</string>
+    <string name="nombre_receta_hint">Nombre de la receta</string>
+    <string name="ingredientes_hint">Ingredientes</string>
+    <string name="preparacion_hint">Preparación</string>
+
+    <!-- Listas (arrays) -->
+    <string-array name="spinner_categorias">
+        <item>Categoría</item>
+        <item>Vegetariano</item>
+        <item>Vegano</item>
+        <item>Carnes</item>
+        <item>Postre</item>
+        <item>Postre Vegano</item>
+    </string-array>
+
+    <!-- Button text -->
+    <string name="btn_inciar_sesion_text">Iniciar Sesión</string>
+    <string name="btn_Registrarse">Registrarse</string>
+    <string name="btn_volver_txt">Volver</string>
+    <string name="btn_aniadir">Añadir Receta</string>
+    <string name="btn_filtrar">Filtrar</string>
+    <string name="btn_actualizar">Actualizar</string>
+    <string name="btn_eliminar">Eliminar</string>
+    <string name="btn_eliminar_receta">Eliminar Receta</string>
+    <string name="btn_actualizar_receta">Actualizar Receta</string>
+    <string name="btn_cambiar_contrasenia">Cambiar Contraseña</string>
+    <string name="btn_cerrar_sesion">Cerrar Sesión</string>
+
+    <!-- Checkbox text -->
+    <string name="chbox_recordar_usuario_txt">Recordar Usuario</string>
+
+
+    <!-- Textos textView -->
+    <string name="textView_Ingredientes">Ingredientes</string>
+    <string name="textView_Preparacion">Preparación</string>
+
+    <string name="textView_Eliminar_Receta">
+        ¿Seguro que desea eliminar esta receta?\n\n
+        Una vez eliminada no se podrá recuperar.
+    </string>
+
+    <!-- textos provisorios -->
+    <string name="nombre_receta_provisorio">Bizcocho Casero</string>
+
+    <string name="ingredientes_provisorios">
+        - 4 huevos.\n
+        - 120gr azucar.\n
+        - 120g de harina.
+    </string>
+
+    <string name="preparacion_provisoria">
+        1.- Separamos las yemas de las claras de los huevos. Ponemos las yemas en un bol pequeño y las claras en otro más grande.\n\n
+        2.- Añadimos 60g del azúcar a las yemas. Batimos bien con una batidora de varillas eléctrica. Pasados dos minutos, tendremos una especie de crema blanquecina.\n\n
+        3.- Hecho esto, continuamos preparando la masa de nuestro bizcocho casero. Montamos las claras del huevo al «casi» punto de nieve. Es decir, las batimos con la batidora de varillas eléctrica y cuando, comience a tomar algo de consistecia – alrededor del minuto y medio del inicio del batido – añadimos los otros 60g de azúcar. Seguimos batiendo hasta que se monte al punto de nieve por completo. Alrededor de un minuto más. Puedes hacer estos dos últimos pasos con una varilla, a mano pero, el tiempo de batido aumentará sustancialmente. En torno a 5 veces.\n\n
+        4.- Ponemos las yemas en el bol donde tenemos las claras y con una cuchara mezclamos haciendo movimientos envolventes, hasta tener una masa homogénea.\n\n
+
+        5.- Añadimos la harina. Para ello, la tamizamos con un colador y la añadimos tal cual cae. Volvemos a mezclar haciendo movimientos envolventes, hasta que no haya ninguna mota de harina.\n\n
+        6.- Forramos el fondo de un molde desmontable para tartas con papel vegetal, o papel de horno. Las medidas adecuadas para estas cantidades van desde lo 18 a los 22cm. Si tienes un molde más grande, triplica las cantidades. Dentro del molde, introducimos la masa de lo que será nuestro futuro bizcocho casero.\n\n
+        7.- Igualamos toda la masa sobre el molde. Es muy densa así que tendrás que ayudarla a hacerlo, moviendo el molde o con una cuchara. Hecho todo esto, metemos el molde en el horno, previamente bien calentado a 180ºC.\n\n
+        8.- Horneamos de 30 a 45′, depende de hornos. Pasada la primera media hora y, si está el bizcocho dorado, lo pinchamos con un palillo. Si éste sale seco, lo podemos retirar. Si sigue húmedo, déjalos unos minutos más.\n\n
+        9.- Cuando el palillo salga seco, saca el bizcocho del horno y deja que se enfríe 10 minutos. Pasado ese tiempo desmolda y ponlo en una rejilla, hasta que se enfríe por completo.\n\n
+    </string>
+
+    <string-array name="lista_recetas_provisorias">
+        <item>Bizcocho casero</item>
+        <item>Ají de gallina</item>
+        <item>Hummus tradicional</item>
+        <item>Tarta de manzana</item>
+        <item>Ramen vegetariano</item>
+        <item>Paté de champiñon y lentejas</item>
+        <item>Carne mongoliana</item>
+        <item>Pollo teriyaki</item>
+    </string-array>
+
+
+</resources>
