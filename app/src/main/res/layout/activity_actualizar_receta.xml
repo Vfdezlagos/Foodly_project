@@ -88,7 +88,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/nombre_receta_hint"
-                    android:text="@string/nombre_receta_provisorio"
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,7 +118,6 @@
                     android:hint="@string/ingredientes_hint"
                     android:scrollbars="vertical"
                     android:singleLine="false"
-                    android:text="@string/ingredientes_provisorios"
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -138,7 +136,6 @@
                     android:hint="@string/preparacion_hint"
                     android:scrollbars="vertical"
                     android:singleLine="false"
-                    android:text="@string/preparacion_provisoria"
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -18,6 +18,7 @@ class OpcionesUsuarioActivity : AppCompatActivity() {
         val btn_volver = findViewById<Button>(R.id.btn_volverOpcUsuario)
 
 
+
         //ACCION EVENTO CLICK
         btn_cambiarPass.setOnClickListener {
 
@@ -43,6 +44,8 @@ class OpcionesUsuarioActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+
 
     fun validarCampos() :Int{
 

@@ -32,5 +32,9 @@ class Validador {
         return !Patterns.EMAIL_ADDRESS.matcher(texto).matches()
     }
 
+    fun validarFecha(fecha_actual: Long, fecha_seleccionada: Long): Boolean{
+        //Retorna true si la fecha actual es menor a la fecha seleccionada
+        return fecha_actual < fecha_seleccionada
+    }
 
 }

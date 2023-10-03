@@ -3,6 +3,7 @@ package com.example.foodly
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
@@ -16,6 +17,27 @@ class AniadirRecetaActivity : AppCompatActivity() {
         //REFERENCIAR WIDGETS
         val btn_aniadir = findViewById<Button>(R.id.btn_AniadirRec)
         val btn_volver = findViewById<Button>(R.id.btn_volverAniadirRec)
+        val sp_categorias = findViewById<Spinner>(R.id.sp_categoriasAniadirRec)
+
+
+
+        //Asignar Categorias a Spinner
+        val arrayAdapterSpinner: ArrayAdapter<*>
+
+        val categorias = ArrayList<String>()
+        categorias.add("Seleccione un categoría")
+        categorias.add("Vegetariano")
+        categorias.add("Vegano")
+        categorias.add("Carnes")
+        categorias.add("Postre")
+        categorias.add("Postre Vegano")
+
+        arrayAdapterSpinner = ArrayAdapter(this@AniadirRecetaActivity, android.R.layout.simple_spinner_dropdown_item
+            , categorias)
+
+        sp_categorias.adapter = arrayAdapterSpinner
+
+
 
         //ACCION EVENTO CLICK
         btn_aniadir.setOnClickListener {
@@ -38,6 +60,8 @@ class AniadirRecetaActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+
 
     fun validarCampos() :Int{
 
@@ -67,7 +91,7 @@ class AniadirRecetaActivity : AppCompatActivity() {
 
 
         //Validar categoria
-        if(categoria == "Categoría"){
+        if(categoria == "Seleccione un categoría"){
             Toast.makeText(this, "Debes seleccionar una categoría", Toast.LENGTH_SHORT).show()
             contador++
         }

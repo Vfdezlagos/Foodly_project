@@ -10,6 +10,9 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
+
+
+        //Establecer tiempo de "carga" de splash screen
         val delay:Long = 4000
 
         Handler(this.mainLooper).postDelayed({

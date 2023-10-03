@@ -85,7 +85,6 @@
         android:background="@color/custom_gray_t50"
         android:contextClickable="true"
         android:dividerHeight="20sp"
-        android:entries="@array/lista_recetas_provisorias"
         android:fadeScrollbars="true"
         android:paddingHorizontal="3sp"
         android:scrollbarSize="7sp"

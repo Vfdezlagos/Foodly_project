@@ -1,9 +1,11 @@
 package com.example.foodly
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputLayout
 
@@ -16,16 +18,35 @@ class MainActivity : AppCompatActivity() {
 
         val btn_registrarse = findViewById<Button>(R.id.btn_registrarseMain)
         val btn_iniciarsesion = findViewById<Button>(R.id.btn_iniciarSesionMain)
+        val til_username = findViewById<TextInputLayout>(R.id.til_usernameMain)
+        val cb_recordar_usuario = findViewById<CheckBox>(R.id.cb_recordarUsuarioMain)
+
+
+
+        //Recordar usuario
+        val preferencias = getSharedPreferences("datos", Context.MODE_PRIVATE)
+        til_username.editText?.setText(preferencias.getString("username", ""))
 
 
 
         //ACCION DEL METODO CLICK
-
         btn_iniciarsesion.setOnClickListener {
             //VALIDAR LOS CAMPOS
             val errores = validarCampos()
 
             if(errores == 0){
+                //Validacion checkbox recordar usuario
+                val editor = preferencias.edit()
+
+                if(cb_recordar_usuario.isChecked){
+                    editor.putString("username", til_username.editText?.text.toString())
+                    editor.commit()
+                    Toast.makeText(this@MainActivity, "Usuario recordado", Toast.LENGTH_SHORT).show()
+                }else{
+                    editor.putString("username", "")
+                    editor.commit()
+                }
+
                 //REDIRECCIONAR A HOME ACTIVITY
                 val intent = Intent(this@MainActivity, HomeActivity::class.java)
                 startActivity(intent)
@@ -38,7 +59,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, RegistroUsuarioActivity::class.java)
             startActivity(intent)
         }
+
+
     }
+
+
 
     fun validarCampos() :Int{
 

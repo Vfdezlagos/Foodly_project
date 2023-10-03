@@ -1,12 +1,14 @@
 package com.example.foodly
 
+import android.app.DatePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
-import org.w3c.dom.Text
+import java.util.Calendar
 
 class RegistroUsuarioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,9 +18,29 @@ class RegistroUsuarioActivity : AppCompatActivity() {
         //REFERENCIAR WIDGETS
         val btn_registrar = findViewById<Button>(R.id.btn_registrarRegistroUsu)
         val btn_volver = findViewById<Button>(R.id.btn_volverRegistroUsu)
+        val til_datepicker = findViewById<TextInputLayout>(R.id.til_datepickerRegistroUsu)
+        val cal = Calendar.getInstance()
 
 
-        //ACCION DEL EVENTO CLICK
+
+        //DATEPICKER
+
+        //listener datepicker
+        val listenerFecha = DatePickerDialog.OnDateSetListener { datePicker, year, month, dayOfMonth ->
+            //correcion de mes.
+            val month = month + 1
+            til_datepicker.editText?.setText("$dayOfMonth/$month/$year")
+        }
+
+        //ACCION CLICK til_datepicker
+        til_datepicker.editText?.setOnClickListener {
+            //Mostrar datepicker
+            DatePickerDialog(this@RegistroUsuarioActivity, listenerFecha, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+
+
+        //ACCION DEL EVENTO CLICK BOTONES
         btn_registrar.setOnClickListener {
 
             //Validar los campos
@@ -39,6 +61,8 @@ class RegistroUsuarioActivity : AppCompatActivity() {
         }
     }
 
+
+
     fun validarCampos() :Int{
 
         var contador:Int = 0
@@ -50,11 +74,13 @@ class RegistroUsuarioActivity : AppCompatActivity() {
         val til_email = findViewById<TextInputLayout>(R.id.til_emailRegistroUsu)
         val til_password = findViewById<TextInputLayout>(R.id.til_passwordRegistroUsu)
         val til_rep_password = findViewById<TextInputLayout>(R.id.til_RepPasswordRegistroUsu)
+        val til_datepicker = findViewById<TextInputLayout>(R.id.til_datepickerRegistroUsu)
 
         val username = til_username.editText?.text.toString()
         val email = til_email.editText?.text.toString()
         val password = til_password.editText?.text.toString()
         val rep_password = til_rep_password.editText?.text.toString()
+        val fecha_selec = til_datepicker.editText?.text.toString()
 
 
         //Validacion username
@@ -121,6 +147,38 @@ class RegistroUsuarioActivity : AppCompatActivity() {
                 til_rep_password.error = ""
             }
         }
+
+
+
+        //Validacion Fecha nacimiento
+
+        //Validacion campo vacio
+        if(validador.validarCampoVacio(fecha_selec)){
+            til_datepicker.error = "Este campo es obligatorio"
+            contador++
+        }else{
+            til_datepicker.error = ""
+
+            //Validacion fecha menor o igual a la actual
+            val cal = Calendar.getInstance()
+            val formatter = SimpleDateFormat("dd/MM/yyyy")
+
+            val fecha_actual_millis = cal.timeInMillis
+
+            //setear y formatear fecha seleccionada
+            cal.setTime(formatter.parse(fecha_selec))
+
+            val fecha_selec_millis = cal.timeInMillis
+
+
+            if(validador.validarFecha(fecha_actual_millis, fecha_selec_millis)){
+                til_datepicker.error = "Fecha inválida"
+                contador++
+            }else{
+                til_datepicker.error = ""
+            }
+        }
+
 
         return contador
 

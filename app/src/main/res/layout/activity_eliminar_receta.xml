@@ -83,7 +83,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:background="@color/custom_red_t25"
-                android:text="@string/nombre_receta_provisorio"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="30sp"

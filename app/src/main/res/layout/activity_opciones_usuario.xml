@@ -82,12 +82,15 @@
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_volverOpcUsuario">
+                app:layout_constraintTop_toBottomOf="@+id/btn_volverOpcUsuario"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/custom_gray_t50">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/actual_password_hint" />
+                    android:hint="@string/actual_password_hint"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -97,12 +100,15 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_passwordActualOpcUsuario">
+                app:layout_constraintTop_toBottomOf="@+id/til_passwordActualOpcUsuario"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/custom_gray_t50">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/new_password_hint" />
+                    android:hint="@string/new_password_hint"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -112,12 +118,15 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_passwordNuevaOpcUsuario">
+                app:layout_constraintTop_toBottomOf="@+id/til_passwordNuevaOpcUsuario"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/custom_gray_t50">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/rep_password_hint" />
+                    android:hint="@string/rep_password_hint"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

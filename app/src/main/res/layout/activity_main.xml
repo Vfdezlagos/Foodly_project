@@ -102,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="150dp"
+                android:checked="true"
                 android:text="@string/chbox_recordar_usuario_txt"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
