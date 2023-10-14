@@ -77,22 +77,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline11"
         app:layout_constraintTop_toBottomOf="@+id/img_logoFoodlyHome" />
 
-    <ListView
-        android:id="@+id/Lv_recetasHome"
-        android:layout_width="0dp"
-        android:layout_height="480sp"
-        android:layout_marginTop="15dp"
-        android:background="@color/custom_gray_t50"
-        android:contextClickable="true"
-        android:dividerHeight="20sp"
-        android:fadeScrollbars="true"
-        android:paddingHorizontal="3sp"
-        android:scrollbarSize="7sp"
-        android:scrollbarStyle="outsideInset"
-        app:layout_constraintEnd_toStartOf="@+id/guideline12"
-        app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toBottomOf="@+id/btn_aniadirRecHome" />
-
     <Spinner
         android:id="@+id/sp_categoriasHome"
         style="@style/Widget.AppCompat.Spinner.Underlined"
@@ -105,5 +89,26 @@
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintTop_toBottomOf="@+id/img_logoFoodlyHome" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recetasHome"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/btn_aniadirRecHome" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fb_ubicacionHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:contentDescription="@string/desc_btn_ubicacion"
+        android:src="@drawable/baseline_location_on_24"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/rv_recetasHome" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

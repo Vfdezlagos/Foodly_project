@@ -7,12 +7,19 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
+import com.example.foodly.roomdatabase.DB
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.launch
 
 class ActualizarRecetaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_actualizar_receta)
+
+        //INICIALIZAMOS LA DB
+        val room = Room.databaseBuilder(this, DB.Db::class.java,"foodly-database").allowMainThreadQueries().build()
 
         //REFERENCIAR WIDGETS
         val btn_actualizar = findViewById<Button>(R.id.btn_ActualizarRec)
@@ -29,11 +36,11 @@ class ActualizarRecetaActivity : AppCompatActivity() {
 
         val categorias = ArrayList<String>()
         categorias.add("Seleccione un categoría")
-        categorias.add("Vegetariano")
-        categorias.add("Vegano")
-        categorias.add("Carnes")
-        categorias.add("Postre")
-        categorias.add("Postre Vegano")
+        categorias.add("vegetariano")
+        categorias.add("vegano")
+        categorias.add("carnes")
+        categorias.add("postre")
+        categorias.add("postre_vegano")
 
         arrayAdapterSpinner = ArrayAdapter(this@ActualizarRecetaActivity, android.R.layout.simple_spinner_dropdown_item
             , categorias)
@@ -42,26 +49,40 @@ class ActualizarRecetaActivity : AppCompatActivity() {
 
 
 
-        //Obtener datos del intent
-        val index_receta = intent.getIntExtra("index_receta", 0)
-        val index_categoria = intent.getIntExtra("index_categoria", 0)
-        val nombre_receta = intent.getStringExtra("nombre_receta")
-        val ingredientes = intent.getStringExtra("ingredientes_receta")
-        val preparacion = intent.getStringExtra("preparacion_receta")
+
+        //obtener id de receta y username
+        val id = intent.getLongExtra("id", 0)
+        val username = intent.getStringExtra("username")
 
 
+        //obtener receta
+        val receta = room.daoReceta().obtenerRecetaId(id)
+
+
+        //obtener index de la categoria
+        var index_categoria = 0
+
+        when(receta.categoria){
+            "Seleccione un categoría" -> index_categoria = 0
+            "vegetariano" -> index_categoria = 1
+            "vegano" -> index_categoria = 2
+            "carnes" -> index_categoria = 3
+            "postre" -> index_categoria = 4
+            "postre_vegano" -> index_categoria = 5
+            else -> index_categoria = 0
+        }
 
         //setar nombre receta
-        til_nombre.editText?.setText(nombre_receta)
+        til_nombre.editText?.setText(receta.nombre)
 
         //setear categoria de la receta
         sp_categorias.setSelection(index_categoria)
 
         //setear ingredientes receta
-        til_ingredientes.editText?.setText(ingredientes)
+        til_ingredientes.editText?.setText(receta.ingredientes)
 
         //setear preparacion de la receta
-        til_preparacion.editText?.setText(preparacion)
+        til_preparacion.editText?.setText(receta.preparacion)
 
 
 
@@ -73,18 +94,44 @@ class ActualizarRecetaActivity : AppCompatActivity() {
             val errores = validarCampos()
 
             if(errores == 0){
-                val intent = Intent(this@ActualizarRecetaActivity, DetalleRecetaActivity::class.java)
 
-                //para que al actualizar se muestren los resultados actualizados en el detalle de la receta (provisorio luego sera con DB)
-                intent.putExtra("index_receta", index_receta)
-                intent.putExtra("index_categoria", sp_categorias.selectedItemPosition)
-                intent.putExtra("nombre_receta", til_nombre.editText?.text.toString())
-                intent.putExtra("ingredientes_receta", til_ingredientes.editText?.text.toString())
-                intent.putExtra("preparacion_receta", til_preparacion.editText?.text.toString())
+                //Captura de datos
+                val til_nombre_receta = findViewById<TextInputLayout>(R.id.til_nombreRecActualizarRec)
+                val sp_categorias = findViewById<Spinner>(R.id.sp_categoriasActualizarRec)
+                val til_ingredientes = findViewById<TextInputLayout>(R.id.til_ingredientesActualizarRec)
+                val til_preparacion = findViewById<TextInputLayout>(R.id.til_preparacionActualizarRec)
 
-                Toast.makeText(this, "Receta Actualizada", Toast.LENGTH_SHORT).show()
+                val nombre = til_nombre_receta.editText?.text.toString()
+                val ingredientes = til_ingredientes.editText?.text.toString()
+                val preparacion = til_preparacion.editText?.text.toString()
+                val categoria = sp_categorias.selectedItem.toString()
 
-                startActivity(intent)
+                val validador = Validador()
+
+                //obtener recetas del usuario
+                val recetas = room.daoReceta().obtenerRecetasUsuario(username)
+
+                //validar que no exista la receta con ese nombre para el usuario determinado
+                if(validador.validarRecetaExistenteActualizar(recetas, nombre, id)){
+                    til_nombre.error = "La receta ya existe"
+                }else{
+                    til_nombre.error = ""
+                    lifecycleScope.launch {
+                        room.daoReceta().actualizarReceta(nombre, categoria, ingredientes, preparacion, id)
+
+                        val intent = Intent(this@ActualizarRecetaActivity, DetalleRecetaActivity::class.java)
+
+                        //para que al actualizar se muestren los resultados actualizados en el detalle de la receta (provisorio luego sera con DB)
+                        intent.putExtra("id", id)
+                        intent.putExtra("username", username)
+
+                        Toast.makeText(this@ActualizarRecetaActivity, "Receta Actualizada", Toast.LENGTH_SHORT).show()
+
+                        startActivity(intent)
+                    }
+
+                }
+
             }
 
         }
@@ -93,11 +140,8 @@ class ActualizarRecetaActivity : AppCompatActivity() {
             val intent = Intent(this@ActualizarRecetaActivity, DetalleRecetaActivity::class.java)
 
             //Pasar valores a detalle activity
-            intent.putExtra("index_receta", index_receta)
-            intent.putExtra("index_categoria", index_categoria)
-            intent.putExtra("nombre_receta", nombre_receta)
-            intent.putExtra("ingredientes_receta", ingredientes)
-            intent.putExtra("preparacion_receta", preparacion)
+            intent.putExtra("id", id)
+            intent.putExtra("username", username)
 
             startActivity(intent)
         }

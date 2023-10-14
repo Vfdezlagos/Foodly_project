@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.room.Room
+import com.example.foodly.roomdatabase.DB
 
 
 class DetalleRecetaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalle_receta)
+
+        //INICIALIZAMOS LA DB
+        val room = Room.databaseBuilder(this, DB.Db::class.java,"foodly-database").allowMainThreadQueries().build()
 
         //REFERENCIAR WIDGETS
         val btn_volver = findViewById<Button>(R.id.btn_volverDetalleRec)
@@ -22,40 +27,32 @@ class DetalleRecetaActivity : AppCompatActivity() {
         val tv_categoria = findViewById<TextView>(R.id.tv_categoriaRecetaDetalleRec)
 
 
+        //obtener id de receta y username
+        val id = intent.getLongExtra("id", 0)
+        val username = intent.getStringExtra("username")
 
-        //Array list categorias
-        val categorias = ArrayList<String>()
 
-        //Insertar categorias al array
-        categorias.add("Seleccione un categoría")
-        categorias.add("Vegetariano")
-        categorias.add("Vegano")
-        categorias.add("Carnes")
-        categorias.add("Postre")
-        categorias.add("Postre Vegano")
-
+        //obtener receta
+        val receta = room.daoReceta().obtenerRecetaId(id)
 
 
         //capturar y setear campos desde home
 
-        //Obtener index de la receta
-        val index_receta = intent.getIntExtra("index_receta", 0)
-
         //nombre de la receta
-        val nombre_receta = intent.getStringExtra("nombre_receta")
-        tv_nombre_receta.setText(nombre_receta)
+        val nombre = receta.nombre
+        tv_nombre_receta.setText(nombre)
 
         //categoria de la receta
-        val index_categoria = intent.getIntExtra("index_categoria", 0)
-        tv_categoria.setText(categorias[index_categoria])
+        val categoria = receta.categoria
+        tv_categoria.setText(categoria)
 
         //ingredientes de la receta
-        val ingredientes_receta = intent.getStringExtra("ingredientes_receta")
-        tv_ingredientes.setText(ingredientes_receta)
+        val ingredientes = receta.ingredientes
+        tv_ingredientes.setText(ingredientes)
 
         //preparacion de la receta
-        val preparacion_receta = intent.getStringExtra("preparacion_receta")
-        tv_preparacion.setText(preparacion_receta)
+        val preparacion = receta.preparacion
+        tv_preparacion.setText(preparacion)
 
 
 
@@ -64,11 +61,12 @@ class DetalleRecetaActivity : AppCompatActivity() {
             val intent =Intent(this@DetalleRecetaActivity, ActualizarRecetaActivity::class.java)
 
             //Pasar datos a actualizarRecetaActivity
-            intent.putExtra("index_receta", index_receta)
-            intent.putExtra("nombre_receta", nombre_receta)
-            intent.putExtra("index_categoria", index_categoria)
-            intent.putExtra("ingredientes_receta", ingredientes_receta)
-            intent.putExtra("preparacion_receta", preparacion_receta)
+            intent.putExtra("id", id)
+            intent.putExtra("username", username)
+            intent.putExtra("nombre", nombre)
+            intent.putExtra("categoria", categoria)
+            intent.putExtra("ingredientes", ingredientes)
+            intent.putExtra("preparacion", preparacion)
 
             startActivity(intent)
         }
@@ -77,17 +75,18 @@ class DetalleRecetaActivity : AppCompatActivity() {
             val intent =Intent(this@DetalleRecetaActivity, EliminarRecetaActivity::class.java)
 
             //Pasar datos a eliminar receta activity
-            intent.putExtra("index_receta", index_receta)
-            intent.putExtra("nombre_receta", nombre_receta)
-            intent.putExtra("index_categoria", index_categoria)
-            intent.putExtra("ingredientes_receta", ingredientes_receta)
-            intent.putExtra("preparacion_receta", preparacion_receta)
+            intent.putExtra("id", id)
+            intent.putExtra("username", username)
 
             startActivity(intent)
         }
 
         btn_volver.setOnClickListener {
             val intent = Intent(this@DetalleRecetaActivity, HomeActivity::class.java)
+
+            intent.putExtra("id", id)
+            intent.putExtra("username", username)
+
             startActivity(intent)
         }
     }

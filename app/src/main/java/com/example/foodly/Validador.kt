@@ -1,6 +1,8 @@
 package com.example.foodly
 
 import android.util.Patterns
+import com.example.foodly.roomdatabase.entity.Receta
+import com.example.foodly.roomdatabase.entity.Usuario
 import java.util.regex.Pattern
 
 class Validador {
@@ -37,4 +39,58 @@ class Validador {
         return fecha_actual < fecha_seleccionada
     }
 
+    fun validarUsuarioRegistrado(usuarios: List<Usuario>, username: String, password:String): Boolean {
+
+        //Retorna true si el username o password son incorrectos.
+
+        for(usuario in usuarios){
+            if(usuario.username.equals(username) && usuario.password.equals(password)){
+                return false
+            }
+        }
+
+        return true
+    }
+
+    fun validarUsuarioExistente(usuarios: List<Usuario>, username: String, email: String): Boolean{
+
+        //Retorna true si el usuario o correo ya estan registrados en la DB
+
+        for(usuario in usuarios){
+            if(usuario.username.equals(username) || usuario.email.equals(email)){
+                return true
+            }
+        }
+
+        return false
+    }
+
+    fun validarContraseñaUsuario(usuario: Usuario, password: String): Boolean{
+        //Retorna true si la pass del usuario es distinta a la pass entregada
+        return !usuario.password.equals(password)
+    }
+
+    fun validarRecetaExistente(recetas: List<Receta>, nombre: String): Boolean{
+
+        //Retorna true si la receta ya existe y no tiene el mismo id
+
+        for (receta in recetas){
+            if(receta.nombre.equals(nombre)){
+                return true
+            }
+        }
+        return false
+    }
+
+    fun validarRecetaExistenteActualizar(recetas: List<Receta>, nombre: String, id: Long): Boolean{
+
+        //Retorna true si la receta ya existe y no tiene el mismo id
+
+        for (receta in recetas){
+            if(receta.nombre.equals(nombre) && !receta.id.equals(id)){
+                return true
+            }
+        }
+        return false
+    }
 }

@@ -5,18 +5,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
+import com.example.foodly.roomdatabase.DB
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.launch
 
 class OpcionesUsuarioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_opciones_usuario)
 
+        //INICIALIZAMOS LA DB
+        val room = Room.databaseBuilder(this, DB.Db::class.java,"foodly-database").allowMainThreadQueries().build()
+
         //REFERENCIAR WIDGETS
         val btn_cambiarPass = findViewById<Button>(R.id.btn_cambiarPasswordOpcUsuario)
         val btn_cerrarSesion = findViewById<Button>(R.id.btn_cerrarSesionOpcUsuario)
         val btn_volver = findViewById<Button>(R.id.btn_volverOpcUsuario)
 
+        //obtener username
+        val username = intent.getStringExtra("username")
 
 
         //ACCION EVENTO CLICK
@@ -25,10 +34,41 @@ class OpcionesUsuarioActivity : AppCompatActivity() {
             val errores = validarCampos()
 
             if(errores == 0){
-                Toast.makeText(this, "Contraseña actualizada", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this@OpcionesUsuarioActivity, HomeActivity::class.java)
-                startActivity(intent)
+                //obtener usuario a traves de username
+                val usuario = room.daoUsuario().obtenerUsuario(username)
+
+                //obtener datos de los inputs
+                val til_password = findViewById<TextInputLayout>(R.id.til_passwordActualOpcUsuario)
+                val til_password_nueva = findViewById<TextInputLayout>(R.id.til_passwordNuevaOpcUsuario)
+
+                val password = til_password.editText?.text.toString()
+                val password_nueva = til_password_nueva.editText?.text.toString()
+
+
+                val validador = Validador()
+
+                //comprobar que la contraseña ingresada sea la misma que la del usuario
+                if(validador.validarContraseñaUsuario(usuario, password)){
+                    til_password.error = "La contraseña es incorrecta"
+                }else{
+                    til_password.error = ""
+
+                    lifecycleScope.launch {
+                        room.daoUsuario().actualizarUsuario(usuario.username, password_nueva)
+
+                        Toast.makeText(this@OpcionesUsuarioActivity, "Contraseña actualizada", Toast.LENGTH_SHORT).show()
+
+                        val intent = Intent(this@OpcionesUsuarioActivity, HomeActivity::class.java)
+
+                        intent.putExtra("username", username)
+
+                        startActivity(intent)
+                    }
+
+                }
+
+
             }
         }
 
@@ -41,6 +81,9 @@ class OpcionesUsuarioActivity : AppCompatActivity() {
 
         btn_volver.setOnClickListener {
             val intent = Intent(this@OpcionesUsuarioActivity, HomeActivity::class.java)
+
+            intent.putExtra("username", username)
+
             startActivity(intent)
         }
     }

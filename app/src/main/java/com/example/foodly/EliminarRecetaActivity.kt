@@ -7,11 +7,18 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
+import com.example.foodly.roomdatabase.DB
+import kotlinx.coroutines.launch
 
 class EliminarRecetaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eliminar_receta)
+
+        //INICIALIZAMOS LA DB
+        val room = Room.databaseBuilder(this, DB.Db::class.java,"foodly-database").allowMainThreadQueries().build()
 
         //REFERENCIAR WIDGETS
         val btn_eliminar = findViewById<Button>(R.id.btn_eliminarRec)
@@ -20,17 +27,18 @@ class EliminarRecetaActivity : AppCompatActivity() {
 
 
 
-        //Obtener datos del intent
-        val index_receta = intent.getIntExtra("index_receta", 0)
-        val index_categoria = intent.getIntExtra("index_categoria", 0)
-        val nombre_receta = intent.getStringExtra("nombre_receta")
-        val ingredientes = intent.getStringExtra("ingredientes_receta")
-        val preparacion = intent.getStringExtra("preparacion_receta")
+        //obtener id de receta y username
+        val id = intent.getLongExtra("id", 0)
+        val username = intent.getStringExtra("username")
+
+
+        //obtener receta
+        val receta = room.daoReceta().obtenerRecetaId(id)
 
 
 
         //setear nombre de la receta
-        tv_nombre_receta.setText(nombre_receta)
+        tv_nombre_receta.setText(receta.nombre)
 
 
 
@@ -45,10 +53,21 @@ class EliminarRecetaActivity : AppCompatActivity() {
                 dialog, which ->
 
                 //Accion a realizar si se preciona ok
-                Toast.makeText(this, "Receta \"${nombre_rec}\" Eliminada", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this@EliminarRecetaActivity, HomeActivity::class.java)
-                startActivity(intent)
+                lifecycleScope.launch {
+                    room.daoReceta().eliminarReceta(id)
+
+                    Toast.makeText(this@EliminarRecetaActivity, "Receta \"${nombre_rec}\" Eliminada", Toast.LENGTH_SHORT).show()
+
+                    val intent = Intent(this@EliminarRecetaActivity, HomeActivity::class.java)
+
+                    //Pasar valores a detalle activity
+                    intent.putExtra("id", id)
+                    intent.putExtra("username", username)
+
+                    startActivity(intent)
+                }
+
             }
             builder.setNegativeButton("Cancelar", null)
             builder.show()
@@ -58,11 +77,9 @@ class EliminarRecetaActivity : AppCompatActivity() {
             val intent = Intent(this@EliminarRecetaActivity, DetalleRecetaActivity::class.java)
 
             //Pasar valores a detalle activity
-            intent.putExtra("index_receta", index_receta)
-            intent.putExtra("index_categoria", index_categoria)
-            intent.putExtra("nombre_receta", nombre_receta)
-            intent.putExtra("ingredientes_receta", ingredientes)
-            intent.putExtra("preparacion_receta", preparacion)
+            intent.putExtra("id", id)
+            intent.putExtra("username", username)
+
 
             startActivity(intent)
         }

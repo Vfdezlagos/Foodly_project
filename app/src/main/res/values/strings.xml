@@ -4,6 +4,8 @@
     <!-- Content description -->
     <string name="desc_logo_text">Logo foodly</string>
     <string name="desc_btn_opc_usuario">Boton opciones de usuario</string>
+    <string name="desc_btn_ubicacion">Boton ubicacion home</string>
+    <string name="desc_imagen_receta">Imagen de la receta</string>
 
     <!-- input hints -->
     <string name="username_hint">Nombre de usuario</string>
@@ -25,7 +27,8 @@
         <item>Carnes</item>
         <item>Postre</item>
         <item>Postre Vegano</item> -->
-    </string-array> -->
+    </string-array>
+    -->
 
     <!-- Button text -->
     <string name="btn_inciar_sesion_text">Iniciar Sesión</string>
@@ -39,6 +42,7 @@
     <string name="btn_actualizar_receta">Actualizar Receta</string>
     <string name="btn_cambiar_contrasenia">Cambiar Contraseña</string>
     <string name="btn_cerrar_sesion">Cerrar Sesión</string>
+    <string name="btn_tomar_foto">Añadir foto receta</string>
 
     <!-- Checkbox text -->
     <string name="chbox_recordar_usuario_txt">Recordar Usuario</string>
@@ -52,6 +56,7 @@
         ¿Seguro que desea eliminar esta receta?\n\n
         Una vez eliminada no se podrá recuperar.
     </string>
+    <string name="title_activity_maps">MapsActivity</string>
 
 
 </resources>
